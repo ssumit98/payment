@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic UPI Payment</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e9ecef;
+        }
+
+        /* Container */
+        .container {
+            width: 75%;
+            max-width: 280px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        form label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            font-size: 1em;
+            color: #495057;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #495057;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="number"]:focus,
+        form select:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        /* Dropdown Styling */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 35px;
+        }
+
+        /* Gradient Button Styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #004d00, #66ff66); /* Darker to lighter green */
+            border: none;
+            color: #ffffff;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #66ff66, #004d00);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>UPI Payment</h2>
+        <form id="upiForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="project">Project:</label>
+            <input type="text" id="project" required>
+
+            <label for="division">Division:</label>
+            <select id="division" required>
+                <option value="Division 1">Division 1</option>
+                <option value="Division 2">Division 2</option>
+                <option value="Division 3">Division 3</option>
+            </select>
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" required>
+
+            <button type="button" onclick="payNow()">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        function payNow() {
+            // Get user inputs
+            const name = document.getElementById('name').value;
+            const project = document.getElementById('project').value;
+            const division = document.getElementById('division').value;
+            const amount = document.getElementById('amount').value;
+
+            // Encode inputs for URL with \n for line breaks
+            const note = encodeURIComponent(`${name}\n${project}\n${division}`);
+
+            // Create UPI link
+            const upiLink = `upi://pay?pa=summit.sabbinwar-1@okhdfcbank&pn=Gov.%20Acount&am=${amount}&tn=${note}`;
+
+            // Automatically open the UPI link
+            window.location.href = upiLink;
+        }
+    </script>
+</body>
+</html>
